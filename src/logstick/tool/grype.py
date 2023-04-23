@@ -58,7 +58,7 @@ class Grype(VulnerabilityScanner):
                     "sh",
                     "-c",
                     # pylint: disable=line-too-long
-                    f"curl -sSfL https://raw.githubusercontent.com/nextlinux/grype/main/install.sh | sh -s -- -b {path} {version}",
+                    f"curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b {path} {version}",
                 ]
             )
 
@@ -129,7 +129,7 @@ class Grype(VulnerabilityScanner):
         abspath = os.path.abspath(path)
         if not tool_exists:
             logging.debug(f"installing grype to {abspath!r}")
-            c = f"go build -ldflags \"-w -s -extldflags '-static' -X github.com/nextlinux/grype/internal/version.version={description}\" -o {abspath} ."
+            c = f"go build -ldflags \"-w -s -extldflags '-static' -X github.com/anchore/grype/internal/version.version={description}\" -o {abspath} ."
             logging.debug(f"running {c!r}")
 
             e = {"GOBIN": abspath, "CGO_ENABLED": "0"}
@@ -181,7 +181,7 @@ class Grype(VulnerabilityScanner):
                     headers["Authorization"] = "Bearer " + os.environ.get("GITHUB_TOKEN")
 
                 response = requests.get(
-                    "https://api.github.com/repos/nextlinux/grype/releases/latest",
+                    "https://api.github.com/repos/anchore/grype/releases/latest",
                     headers=headers,
                 )
 
