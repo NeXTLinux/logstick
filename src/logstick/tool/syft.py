@@ -52,7 +52,7 @@ class Syft(SBOMGenerator):
                     "sh",
                     "-c",
                     # pylint: disable=line-too-long
-                    f"curl -sSfL https://raw.githubusercontent.com/nextlinux/syft/main/install.sh | sh -s -- -b {path} {version}",
+                    f"curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b {path} {version}",
                 ]
             )
 
@@ -90,7 +90,7 @@ class Syft(SBOMGenerator):
             logging.debug("cloning the syft git repo")
             # clone the repo
             os.makedirs(repo_path)
-            repo = git.Repo.clone_from("https://github.com/nextlinux/syft.git", repo_path)
+            repo = git.Repo.clone_from("https://github.com/anchore/syft.git", repo_path)
 
         # checkout the ref in question
         repo.git.fetch("origin", version)
@@ -111,7 +111,7 @@ class Syft(SBOMGenerator):
         if not tool_exists:
             logging.debug(f"installing syft to {abspath!r}")
             # pylint: disable=line-too-long
-            c = f"go build -ldflags \"-w -s -extldflags '-static' -X github.com/nextlinux/syft/internal/version.version={description}\" -o {abspath} ./cmd/syft/"
+            c = f"go build -ldflags \"-w -s -extldflags '-static' -X github.com/anchore/syft/internal/version.version={description}\" -o {abspath} ./cmd/syft/"
             logging.debug(f"running {c!r}")
             subprocess.check_call(
                 shlex.split(c),
@@ -135,7 +135,7 @@ class Syft(SBOMGenerator):
                 logging.info(f"latest syft release found (cached) is {version}")
 
             else:
-                response = requests.get("https://api.github.com/repos/nextlinux/syft/releases/latest")
+                response = requests.get("https://api.github.com/repos/anchore/syft/releases/latest")
                 version = response.json()["name"]
                 cls._latest_version_from_github = version
 
