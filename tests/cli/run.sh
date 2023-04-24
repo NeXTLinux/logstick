@@ -62,7 +62,7 @@ assert_last_output_length 3
 assert_last_output_contains "grype@v0.27.0"
 assert_last_output_contains "grype@v0.50.2"
 assert_last_output_contains "syft@v0.54.0"
-assert_last_output_contains "docker.io/nextlinux/test_images:java-56d52bc@sha256:10008791acbc5866de04108746a02a0c4029ce3a4400a9b3dad45d7f2245f9da"
+assert_last_output_contains "docker.io/anchore/test_images:java-56d52bc@sha256:10008791acbc5866de04108746a02a0c4029ce3a4400a9b3dad45d7f2245f9da"
 
 run logstick result compare $(logstick result list -r test --ids -t grype)
 
